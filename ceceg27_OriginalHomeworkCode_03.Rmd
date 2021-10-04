@@ -13,4 +13,49 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
+#homework 3
+
+#loading the data set
+```{r}
+library(curl)
+f <- f <- curl("https://raw.githubusercontent.com/fuzzyatelin/fuzzyatelin.github.io/master/AN588_Fall21/zombies.csv")
+d <- read.csv(f, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+head(d)
+```
+
+#challenge 1
+#running summary will give us means for each quanititive variable in the population
+```{r}
+summary(d)
+```
+#means
+#height = 67.63
+#weight = 143.91
+#zombies killed = 2.992
+#years of education == 2.996
+#age = 20.05
+
+#challenge 2
+```{r}
+library(ggplot2)
+#gender vs height
+x = ggplot(d, aes(x=gender, y=height)) +geom_boxplot()
+x
+
+#gender vs weight
+y = ggplot(d, aes(x=gender, y=weight)) +geom_boxplot()
+y
+
+#gender vs zombies killed
+g = ggplot(d, aes(x=gender, y=zombies_killed)) +geom_boxplot()
+g
+
+#gender vs years of ed
+c = ggplot(d, aes(x=gender, y=years_of_education)) +geom_boxplot()
+c
+
+#gender vs age
+w = ggplot(d, aes(x=gender, y=age)) +geom_boxplot()
+w
+```
 
