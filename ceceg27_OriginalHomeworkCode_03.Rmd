@@ -77,14 +77,19 @@ a
 #challenge 4
 ```{r}
 qqnorm(d$height)
+qqline(d$height)
 #normal
 qqnorm(d$weight)
+qqline(d$weight)
 #normal
 qqnorm(d$age)
+qqline(d$age)
 #normal
 qqnorm(d$years_of_education)
+qqline(d$years_of_education)
 #non-normal
 qqnorm(d$zombies_killed)
+qqline(d$zombies_killed)
 #non-normal
 
 ```
@@ -97,6 +102,168 @@ hist(d$years_of_education)
 ```
 
 #challenge 5
+#sampling 30 people from the population
+```{r}
+set.seed(1)
+z <- sample(1:nrow(d), 30, replace = f)
+d[z,]
 
+summary(z)
 
+#finding each variables mean, because this is a sample we can use mean and sd commands
+mh <- mean(d$height[z])
+mh
+mw <- mean(d$weight[z])
+mw
+mzk <- mean(d$zombies_killed[z])
+mzk
+myroed<- mean(d$years_of_education[z])
+myroed
+mage<- mean(d$age[z])
+mage
+
+#standard deviation for each sample
+sdh <- sd(d$height[z])
+sdh
+sdw <- sd(d$weight[z])
+sdw 
+sdzk <- sd(d$zombies_killed[z])
+sdzk
+sdyroed <- sd(d$years_of_education[z])
+sdyroed
+sdage <- sd(d$age[z])
+sdage
+
+#standard error, need to build a function
+se <- function(x) {
+    sd(x)/sqrt(length(x))
+}
+
+#standard error
+seh <- se(d$height[z])
+seh
+sew <- se(d$weight[z])
+sew
+sezk <- se(d$zombies_killed[z])
+sezk
+seyroed <- se(d$years_of_education[s])
+seyroed
+seage <- se(d$age[s])
+seage
+
+#95% CI for normally distributed 
+
+#height
+lowerh <- mh - qnorm(1 - 0.05/2) * seh
+upperh <- mh + qnorm(1 - 0.05/2) * seh
+cih <- c(lowerh, upperh)
+cih
+
+#age
+lowerh <- mage - qnorm(1 - 0.05/2) * seage
+upperh <- mage + qnorm(1 - 0.05/2) * seage
+cih <- c(lowerh, upperh)
+cih
+
+#weight
+lowerh <- mw - qnorm(1 - 0.05/2) * sew
+upperh <- mw + qnorm(1 - 0.05/2) * sew
+ciw <- c(lowerh, upperh)
+ciw
+
+#unsure how to do this for nonnormal yet
+```
+
+#Challenge 6
+```{r}
+#caling 99 more samples of 30 zombie survivors
+p <- NULL
+for (i in 1:99) {
+    p[[i]] <- sample(1:nrow(d), size = 30, replace = FALSE)
+}
+
+#mean 
+#height
+mh99 <- NULL
+for(i in 1:99) {
+  mh99[i]<- mean(d$height[p[[i]]])
+}
+mh99
+
+#weight
+mw99 <- NULL
+for(i in 1:99) {
+  mw99[i]<- mean(d$weight[p[[i]]])
+}
+mw99
+
+#zombies killed
+mzk99 <- NULL
+for(i in 1:99) {
+  mzk99[i]<- mean(d$zombies_killed[p[[i]]])
+}
+mzk99
+
+#yr of ed
+myroed99 <- NULL
+for(i in 1:99) {
+  myroed99[i]<- mean(d$years_of_education[p[[i]]])
+}
+myroed99
+#getting an error that this variable is not numeric or logical
+#just kidding I fixed it
+
+#age
+mage99 <- NULL
+for(i in 1:99) {
+  mage99[i]<- mean(d$age[p[[i]]])
+}
+mage99
+
+#need to calculate the mean of all 100 samples, not just the 99 above. Have to combine the two means then take the mean of them 
+
+msamph <- c(mh, mh99)
+msampw <- c(mw, mw99)
+msampzk <- c(mzk, mzk99)
+msampyroed <- c(myroed, myroed99)
+msampage <- c(mage, mage99)
+
+mean(msamph)
+mean(msampw)
+mean(msampzk)
+mean(msampyroed)
+mean(msampage)
+
+#also need to calculate sd
+sd(msamph)
+sd(msampw)
+sd(msampzk)
+sd(msampyroed)
+sd(msampage)
+
+#the standard errors and standard deviations are all generally pretty similar, a bit of variation but nothing crazy 
+
+#to find out if they're normally distributed I will make more q-q plots
+qqnorm(msamph)
+qqline(msamph)
+#normal
+qqnorm(msampw)
+qqline(msampw)
+#normal
+qqnorm(msampage)
+qqline(msampage)
+#normalish, not really, seems to level out at older age
+qqnorm(msampyroed)
+qqline(msampyroed)
+#seems normal, no longer poissons
+qqnorm(msampzk)
+qqline(msampzk)
+#seems normal, no longer poissons
+
+#checking out the ones that may be non-normal with histograms
+hist(msampage)
+hist(msampyroed)
+hist(msampzk)
+#they all look normal, so I would call every distribution normal now, probably because an increase in sample size (Central limit theory)
+```
 
