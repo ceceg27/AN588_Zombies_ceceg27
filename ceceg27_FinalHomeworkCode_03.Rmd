@@ -288,4 +288,4 @@ hist(msampyroed)
 hist(msampzk)
 #they all look normal, so I would call every distribution normal now, probably because an increase in sample size (Central limit theory)
 ```
-
+ 
