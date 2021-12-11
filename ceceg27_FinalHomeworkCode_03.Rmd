@@ -121,7 +121,9 @@ myroed<- mean(d$years_of_education[z])
 myroed
 mage<- mean(d$age[z])
 mage
+```
 
+```{r}
 #standard deviation for each sample
 sdh <- sd(d$height[z])
 sdh
@@ -134,7 +136,9 @@ sdyroed
 sdage <- sd(d$age[z])
 sdage
 
-#standard error, need to build a function
+```
+
+```{r}
 se <- function(x) {
     sd(x)/sqrt(length(x))
 }
@@ -146,11 +150,13 @@ sew <- se(d$weight[z])
 sew
 sezk <- se(d$zombies_killed[z])
 sezk
-seyroed <- se(d$years_of_education[s])
+seyroed <- se(d$years_of_education[z])
 seyroed
-seage <- se(d$age[s])
+seage <- se(d$age[z])
 seage
+```
 
+```{r}
 #95% CI for normally distributed 
 
 #height
