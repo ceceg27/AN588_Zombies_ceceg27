@@ -35,6 +35,8 @@ summary(d)
 #years of education == 2.996
 #age = 20.05
 
+*point is to use a function here to get these parameters*
+
 #challenge 2
 ```{r}
 library(ggplot2)
@@ -74,6 +76,8 @@ a
 #as age increases weight and height increase, but it seems to be a more linear relationship for height than it is for weight. 
 ```
 
+*adding a line using geom_smooth will help show this*
+
 #challenge 4
 ```{r}
 qqnorm(d$height)
@@ -100,6 +104,8 @@ hist(d$zombies_killed)
 hist(d$years_of_education)
 #poissons distribution
 ```
+
+*did this show you anything? explore other distributions to see what these could be!* 
 
 #challenge 5
 #sampling 30 people from the population
@@ -194,6 +200,8 @@ quantile(yoe, c(0.025, 0.975))
 
 ```
 
+*good!*
+
 #Challenge 6
 ```{r}
 #caling 99 more samples of 30 zombie survivors
@@ -286,4 +294,4 @@ hist(msampyroed)
 hist(msampzk)
 #they all look normal, so I would call every distribution normal now, probably because an increase in sample size (Central limit theory)
 ```
-
+ 
